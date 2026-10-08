@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Grpc.HttpListener.Server</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>The gRPC authors + Marc Niehaus</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Common" Version="2.83.0"/>
+    <PackageReference Include="Microsoft.Net.Http.Headers" Version="10.0.12"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.12"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12"/>
+  </ItemGroup>
+</Project>

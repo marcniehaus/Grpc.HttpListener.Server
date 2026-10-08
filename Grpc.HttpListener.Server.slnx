@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/Grpc.HttpListener.Server/Grpc.HttpListener.Server.csproj" />
+  <Project Path="examples/testclient/testclient.csproj" />
+  <Project Path="examples/testserver_httplistener/testserver_httplistener.csproj" />
+  <Project Path="examples/testserver_maui/testserver_maui.csproj" />
+  <Project Path="test/Grpc.HttpListener.Server.Tests/Grpc.HttpListener.Server.Tests.csproj" />
+</Solution>

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package test;
+
+message Foo {
+  int32 Bar = 1;
+}
+
+service UnitTestMethods {
+  rpc Increment (Foo) returns (Foo) {}
+  rpc Range (Foo) returns (stream Foo) {}
+}

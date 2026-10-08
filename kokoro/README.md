@@ -1,1 +1,0 @@
-Configuration files and helper scripts for Google-internal CI tool called "Kokoro".
