@@ -100,7 +100,7 @@ internal static partial class PipeExtensions
             serializationContext.Reset();
             serializationContext.ResponseBufferWriter = pipeWriter;
             serializer(response, serializationContext);          
-/*
+
             // Flush messages unless WriteOptions.Flags has BufferHint set
             var flush = ((serverCallContext.WriteOptions?.Flags ?? default) & WriteFlags.BufferHint) != WriteFlags.BufferHint;
 
@@ -117,7 +117,7 @@ internal static partial class PipeExtensions
                     throw new OperationCanceledException("Request aborted while sending the message.");
                 }
             }
-*/
+
             GrpcServerLog.MessageSent(serverCallContext.Logger);
             if (GrpcEventSource.Log.IsEnabled())
             {
