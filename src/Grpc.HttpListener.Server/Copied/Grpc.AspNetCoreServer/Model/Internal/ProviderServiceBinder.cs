@@ -20,9 +20,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Grpc.AspNetCore.Server.Internal;
 using Grpc.Core;
-/*
-using Microsoft.AspNetCore.Routing;
-*/
 
 namespace Grpc.AspNetCore.Server.Model.Internal;
 

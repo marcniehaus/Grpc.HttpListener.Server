@@ -20,9 +20,6 @@ using System.Diagnostics;
 using System.IO.Pipelines;
 using Grpc.Core;
 using Grpc.Shared;
-/*
-using Microsoft.AspNetCore.Http.Features;
-*/
 
 namespace Grpc.AspNetCore.Server.Internal;
 
@@ -34,7 +31,6 @@ internal sealed class HttpListenerContextStreamWriter<TResponse> : IServerStream
     private readonly HttpListenerContextServerCallContext _context;
     private readonly Action<TResponse, SerializationContext> _serializer;
     private readonly PipeWriter _bodyWriter;
-    //private readonly IHttpListenerRequestLifetimeFeature _requestLifetimeFeature;
     private readonly object _writeLock;
     private Task? _writeTask;
     private bool _completed;

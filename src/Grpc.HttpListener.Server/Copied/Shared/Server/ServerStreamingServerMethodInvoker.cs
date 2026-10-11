@@ -21,9 +21,6 @@ using System.Net;
 using Grpc.AspNetCore.Server;
 using Grpc.AspNetCore.Server.Model;
 using Grpc.Core;
-/*
-using Microsoft.AspNetCore.Http;
-*/
 
 namespace Grpc.Shared.Server;
 

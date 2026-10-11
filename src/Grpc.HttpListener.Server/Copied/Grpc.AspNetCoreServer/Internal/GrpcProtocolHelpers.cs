@@ -24,13 +24,8 @@ using System.Text;
 using System.Net;
 using Grpc.Core;
 using Grpc.Shared;
-/*
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-*/
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
-using System.Collections.Specialized;
 using System.IO.Pipelines;
 
 namespace Grpc.AspNetCore.Server.Internal;

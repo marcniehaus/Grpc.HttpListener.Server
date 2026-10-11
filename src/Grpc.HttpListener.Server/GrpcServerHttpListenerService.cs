@@ -1,5 +1,4 @@
 using System.Net;
-using System.Linq;
 using Grpc.AspNetCore.Server.Model.Internal;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,25 +16,25 @@ public class GrpcServerHttpListenerService : IHostedService
 
     public GrpcServerHttpListenerService(ServiceMethodsRegistry serviceMethodsRegistry, GrpcHttpListenerServerOptions serverOptions, LoggerFactory loggerFactory)
     {
-        this._serviceMethodRegistry = serviceMethodsRegistry;
-        this._serverOptions = serverOptions;
-        this._listener = new System.Net.HttpListener();
-        this._listener.Prefixes.Add(this._serverOptions.ListenUrl);
-        this._logger = loggerFactory.CreateLogger<GrpcServerHttpListenerService>();
+        _serviceMethodRegistry = serviceMethodsRegistry;
+        _serverOptions = serverOptions;
+        _listener = new System.Net.HttpListener();
+        _listener.Prefixes.Add(_serverOptions.ListenUrl);
+        _logger = loggerFactory.CreateLogger<GrpcServerHttpListenerService>();
     }
     
     Task IHostedService.StartAsync(CancellationToken cancellationToken)
     {
-        this._listener.Start();
-        this._listenerTask = Task.Run(Listen);
+        _listener.Start();
+        _listenerTask = Task.Run(Listen);
         return Task.CompletedTask;
     }
 
     async Task IHostedService.StopAsync(CancellationToken cancellationToken)
     {
-        this._cancellationTokenSource.Cancel();
-        this._listener.Close();
-        await (this._listenerTask ?? Task.CompletedTask);
+        _cancellationTokenSource.Cancel();
+        _listener.Close();
+        await (_listenerTask ?? Task.CompletedTask);
     }
 
         private async Task Listen()
@@ -44,9 +43,9 @@ public class GrpcServerHttpListenerService : IHostedService
 
         try
         {
-            while(!this._cancellationTokenSource.IsCancellationRequested)
+            while(!_cancellationTokenSource.IsCancellationRequested)
             {
-                HttpListenerContext context = await this._listener.GetContextAsync();
+                HttpListenerContext context = await _listener.GetContextAsync();
                 _logger.Log(LogLevel.Information, $"Got a request for '{context.Request.Url}'");
                 _ = Task.Run((async () =>
                 {
@@ -61,7 +60,7 @@ public class GrpcServerHttpListenerService : IHostedService
                 }));
             }
         }
-        catch(Exception) when (this._cancellationTokenSource.IsCancellationRequested)
+        catch(Exception) when (_cancellationTokenSource.IsCancellationRequested)
         {            
         }
         catch(Exception ex)
@@ -72,7 +71,7 @@ public class GrpcServerHttpListenerService : IHostedService
 
     private async Task HandleHttpCall(HttpListenerContext context)
     {
-        var methods = this._serviceMethodRegistry.Methods.ToDictionary(m => m.Pattern, m => m);
+        var methods = _serviceMethodRegistry.Methods.ToDictionary(m => m.Pattern, m => m);
 
         if(!methods.TryGetValue(context.Request.Url.AbsolutePath, out var method)) //TODO: Is this the correct way to get the URL?
         {

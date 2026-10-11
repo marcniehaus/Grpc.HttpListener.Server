@@ -18,13 +18,8 @@
 
 using System.Diagnostics;
 using System.IO.Pipelines;
-using System.Net;
-
 using Grpc.Core;
 using Grpc.Shared;
-/*
-using Microsoft.AspNetCore.Http.Features;
-*/
 
 namespace Grpc.AspNetCore.Server.Internal;
 

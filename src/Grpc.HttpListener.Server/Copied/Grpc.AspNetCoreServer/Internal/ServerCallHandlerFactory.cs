@@ -23,12 +23,8 @@ using Grpc.AspNetCore.Server.Model;
 using Grpc.Core;
 using Grpc.HttpListener;
 using Grpc.Shared.Server;
-/*
-using Microsoft.AspNetCore.Http;
-*/
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Log = Grpc.AspNetCore.Server.Internal.ServerCallHandlerFactoryLog;
 
 namespace Grpc.AspNetCore.Server.Internal;
 

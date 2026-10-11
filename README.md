@@ -15,5 +15,17 @@ Therefore, this fork should not be used in productive code!
 Please use the official [grpc-dotnet](https://github.com/grpc/grpc-dotnet)
 code for productive purposes.
 
+## Limitations
+
+Due to the nature of the HttpListener there are some limitations. Especially:
+- Only gRPC Web with HTTP/1.1 is supported
+- HTTPS is not supported
+
+## Examples
+
 In order to see how to use this code, please have a look into the
 [testserver_httplistener example](examples/testserver_httplistener/Program.cs).
+
+## Building a NuGet package
+
+To create a NuGet package from the source code, run `dotnet pack` inside the `src/Grpc.HttpListener.Server` folder.

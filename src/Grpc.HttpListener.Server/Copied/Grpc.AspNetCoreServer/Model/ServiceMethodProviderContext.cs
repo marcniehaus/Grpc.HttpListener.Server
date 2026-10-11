@@ -18,14 +18,9 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Grpc.HttpListener;
-using System.Net;
 using Grpc.AspNetCore.Server.Internal;
 using Grpc.AspNetCore.Server.Model.Internal;
 using Grpc.Core;
-/*
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing.Patterns;
-*/
 
 namespace Grpc.AspNetCore.Server.Model;
 

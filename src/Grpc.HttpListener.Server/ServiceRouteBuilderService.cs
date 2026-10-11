@@ -15,7 +15,7 @@ internal class ServiceRouterBuilderService<T> : IHostedService where T : class
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        this._serviceRouteBuilder.Build();
+        _serviceRouteBuilder.Build();
         return Task.CompletedTask;
     }
 

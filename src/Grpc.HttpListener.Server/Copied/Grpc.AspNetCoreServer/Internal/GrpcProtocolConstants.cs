@@ -19,9 +19,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Grpc.Shared.Server;
-/*
-using Microsoft.AspNetCore.Http;
-*/
 using Microsoft.Net.Http.Headers;
 
 namespace Grpc.AspNetCore.Server.Internal;

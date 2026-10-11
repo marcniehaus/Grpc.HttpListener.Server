@@ -18,10 +18,6 @@
 
 using Grpc.Core;
 using Grpc.HttpListener;
-/*
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing.Patterns;
-*/
 
 namespace Grpc.AspNetCore.Server.Model.Internal;
 

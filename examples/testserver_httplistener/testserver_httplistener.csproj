@@ -17,9 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/Grpc.HttpListener.Server/Grpc.HttpListener.Server.csproj"/>
-    <!--
-    <ProjectReference Include="../test/test.csproj"/>
-      -->
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="../../test/Grpc.HttpListener.Server.Tests/TestMethods.proto" GrpcServices="Both" />

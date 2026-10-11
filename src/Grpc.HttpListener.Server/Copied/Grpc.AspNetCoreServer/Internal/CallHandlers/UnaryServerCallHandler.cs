@@ -20,9 +20,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Grpc.Core;
 using Grpc.Shared.Server;
-/*
-using Microsoft.AspNetCore.Http;
-*/
 using Microsoft.Extensions.Logging;
 
 namespace Grpc.AspNetCore.Server.Internal.CallHandlers;

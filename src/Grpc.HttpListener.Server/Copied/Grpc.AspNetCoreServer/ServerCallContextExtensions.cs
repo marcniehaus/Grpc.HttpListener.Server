@@ -19,9 +19,6 @@
 using System.Net;
 using Grpc.AspNetCore.Server.Internal;
 using Grpc.Shared;
-/*
-using Microsoft.AspNetCore.Http;
-*/
 
 namespace Grpc.Core;
 

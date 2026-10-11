@@ -20,15 +20,6 @@ using System.Diagnostics.CodeAnalysis;
 using Grpc.Core;
 using Grpc.Shared.Server;
 using System.Net;
-
-/*
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-#if NET8_0_OR_GREATER
-using Microsoft.AspNetCore.Http.Timeouts;
-#endif
-using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
-*/
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 

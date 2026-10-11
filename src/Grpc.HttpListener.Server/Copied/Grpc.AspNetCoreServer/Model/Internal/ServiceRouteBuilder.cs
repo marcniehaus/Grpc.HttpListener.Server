@@ -19,13 +19,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Grpc.AspNetCore.Server.Internal;
 using Grpc.Core;
-using Grpc.HttpListener;
 
-/*
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-*/
 using Microsoft.Extensions.Logging;
 using Log = Grpc.AspNetCore.Server.Model.Internal.ServiceRouteBuilderLog;
 

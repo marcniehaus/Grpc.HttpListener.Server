@@ -25,7 +25,7 @@ internal sealed class DefaultGrpcServiceActivator<[DynamicallyAccessedMembers(Gr
 {
     public DefaultGrpcServiceActivator(IServiceProvider serviceProvider)
     {
-        this._serviceProvider = serviceProvider;
+        _serviceProvider = serviceProvider;
     }
 
     private static readonly Lazy<ObjectFactory> _objectFactory = new Lazy<ObjectFactory>(static () => ActivatorUtilities.CreateFactory(typeof(TGrpcService), Type.EmptyTypes));
@@ -33,7 +33,7 @@ internal sealed class DefaultGrpcServiceActivator<[DynamicallyAccessedMembers(Gr
 
     public GrpcActivatorHandle<TGrpcService> Create(IServiceProvider serviceProvider)
     {
-        var provider = serviceProvider ?? this._serviceProvider;
+        var provider = serviceProvider ?? _serviceProvider;
         var service = provider.GetService<TGrpcService>();
         if (service == null)
         {
