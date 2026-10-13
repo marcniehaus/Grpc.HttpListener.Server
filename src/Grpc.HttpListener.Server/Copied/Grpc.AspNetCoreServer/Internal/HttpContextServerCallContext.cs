@@ -77,7 +77,7 @@ public sealed partial class HttpListenerContextServerCallContext : ServerCallCon
         get => _deserializationContext ??= new DefaultDeserializationContext();
     }
 
-    internal bool HasResponseStarted => HttpListenerContext.Response.OutputStream.Position > 0;
+    internal bool HasResponseStarted {get; set; }
 
     internal bool HasResponseTrailers => _responseTrailers != null;
 
@@ -392,6 +392,7 @@ public sealed partial class HttpListenerContextServerCallContext : ServerCallCon
             }
         }
 
+        HasResponseStarted = true;
         return PipeWriter.FlushAsync().AsTask();
     }
 
@@ -493,7 +494,7 @@ public sealed partial class HttpListenerContextServerCallContext : ServerCallCon
 
         var status = new Status(StatusCode.DeadlineExceeded, "Deadline Exceeded");
 
-        var trailersDestination = GrpcProtocolHelpers.GetTrailersDestination(HttpListenerContext.Response, PipeWriter);
+        var trailersDestination = GrpcProtocolHelpers.GetTrailersDestination(this);
         await GrpcProtocolHelpers.SetStatusAsync(trailersDestination, status);
 
         _status = status;

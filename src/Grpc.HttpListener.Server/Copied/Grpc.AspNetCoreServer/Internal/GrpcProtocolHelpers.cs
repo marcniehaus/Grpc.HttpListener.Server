@@ -98,10 +98,10 @@ internal static class GrpcProtocolHelpers
             HttpListenerContext.Request.Headers.AllKeys.Contains(HeaderNames.AccessControlRequestMethod);
     }
 
-    public static async Task BuildHttpErrorResponseAsync(HttpListenerResponse response, int httpStatusCode, StatusCode grpcStatusCode, string message)
+    public static async Task BuildHttpErrorResponseAsync(HttpListenerContextServerCallContext context, int httpStatusCode, StatusCode grpcStatusCode, string message)
     {
-        response.StatusCode = httpStatusCode;
-        await SetStatusAsync(GetTrailersDestination(response, PipeWriter.Create(response.OutputStream)), new Status(grpcStatusCode, message));
+        context.HttpListenerContext.Response.StatusCode = httpStatusCode;
+        await SetStatusAsync(GetTrailersDestination(context), new Status(grpcStatusCode, message));
     }
 
     public static byte[] ParseBinaryHeader(string base64)
@@ -160,9 +160,9 @@ internal static class GrpcProtocolHelpers
 */     
     }
 
-    public static Func<string, string, Task> GetTrailersDestination(HttpListenerResponse response, PipeWriter writer)
+    public static Func<string, string, Task> GetTrailersDestination(HttpListenerContextServerCallContext context)
     {
-        if (writer.UnflushedBytes > 0)
+        if (context.HasResponseStarted)
         {
             /*
             // The response has content so write trailers to a trailing HEADERS frame
@@ -174,14 +174,14 @@ internal static class GrpcProtocolHelpers
 
             return feature.Trailers;
             */
-
             return async (s, w) =>
             {
                 var prefix = new byte[]{0x80, 0x0, 0x0, 0x0, 0x10}; //TODO: From wireshark - but what does it mean?!
                 var header = Encoding.ASCII.GetBytes($"{s.ToLower()}: {w.ToLower()}\r\n");
-                await writer.FlushAsync();
-                await writer.WriteAsync(prefix.Concat(header).ToArray());
-                await writer.FlushAsync();
+                context.HasResponseStarted = true;
+                await context.PipeWriter.FlushAsync();
+                await context.PipeWriter.WriteAsync(prefix.Concat(header).ToArray());
+                await context.PipeWriter.FlushAsync();
             };
         }
         else
@@ -190,7 +190,7 @@ internal static class GrpcProtocolHelpers
             // and other trailers can be placed in the header HEADERS frame
             return (s, w) =>
             {
-                response.Headers[s] = w;
+                context.HttpListenerContext.Response.Headers[s] = w;
                 return Task.CompletedTask;
             };
         }

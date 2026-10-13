@@ -24,7 +24,7 @@ internal static class HttpListenerResponseExtensions
 {
     public static async Task ConsolidateTrailersAsync(HttpListenerResponse HttpListenerResponse, HttpListenerContextServerCallContext context)
     {
-        var trailersDestination = GrpcProtocolHelpers.GetTrailersDestination(HttpListenerResponse, context.PipeWriter);
+        var trailersDestination = GrpcProtocolHelpers.GetTrailersDestination(context);
 
         /*
 

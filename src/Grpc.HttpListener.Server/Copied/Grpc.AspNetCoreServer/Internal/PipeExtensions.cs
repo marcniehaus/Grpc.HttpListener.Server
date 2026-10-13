@@ -64,6 +64,7 @@ internal static partial class PipeExtensions
             serializationContext.Reset();
             serializationContext.ResponseBufferWriter = pipeWriter;
             serializer(response, serializationContext);
+            serverCallContext.HasResponseStarted = true;
 
             GrpcServerLog.MessageSent(serverCallContext.Logger);
             if (GrpcEventSource.Log.IsEnabled())
@@ -107,6 +108,7 @@ internal static partial class PipeExtensions
             if (flush)
             {
                 var flushResult = await pipeWriter.FlushAsync(cancellationToken);
+                serverCallContext.HasResponseStarted = true;
 
                 // Workaround bug where FlushAsync doesn't return IsCanceled = true on request abort.
                 // https://github.com/dotnet/aspnetcore/issues/40788

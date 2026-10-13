@@ -163,26 +163,28 @@ public abstract class ServerCallHandlerBase<[DynamicallyAccessedMembers(GrpcProt
     {
         GrpcServerLog.UnsupportedRequestProtocol(Logger, HttpListenerContext.Request.ProtocolVersion.Major.ToString());
 
+        var context = new HttpListenerContextServerCallContext(HttpListenerContext, MethodOptions.Create([]), null, null, Logger);
         var protocolError = $"Request protocol '{HttpListenerContext.Request.ProtocolVersion.Major}' is not supported.";
-        await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(HttpListenerContext.Response, 426, StatusCode.Internal, protocolError);
+        await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(context, 426, StatusCode.Internal, protocolError);
         HttpListenerContext.Response.Headers[HeaderNames.Upgrade] = GrpcProtocolConstants.Http2Protocol;
     }
 
     private async Task ProcessInvalidContentTypeRequest(HttpListenerContext HttpListenerContext, string error)
     {
+        var context = new HttpListenerContextServerCallContext(HttpListenerContext, MethodOptions.Create([]), null, null, Logger);
+
         // This might be a CORS preflight request and CORS middleware hasn't been configured
         if (GrpcProtocolHelpers.IsCorsPreflightRequest(HttpListenerContext))
         {
             GrpcServerLog.UnhandledCorsPreflightRequest(Logger);
-
-            await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(HttpListenerContext.Response, 405, StatusCode.Internal, "Unhandled CORS preflight request received. CORS may not be configured correctly in the application.");
+            await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(context, 405, StatusCode.Internal, "Unhandled CORS preflight request received. CORS may not be configured correctly in the application.");
             HttpListenerContext.Response.Headers[HeaderNames.Allow] = HttpMethod.Post.Method;
         }
         else
         {
             GrpcServerLog.UnsupportedRequestContentType(Logger, HttpListenerContext.Request.ContentType);
 
-            await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(HttpListenerContext.Response, 415, StatusCode.Internal, error);
+            await GrpcProtocolHelpers.BuildHttpErrorResponseAsync(context, 415, StatusCode.Internal, error);
         }
     }
 }

@@ -124,7 +124,8 @@ public sealed partial class ServerCallHandlerFactory<[DynamicallyAccessedMembers
                 GrpcEventSource.Log.CallUnimplemented(HttpListenerContext.Request.Path.Value!);
             }
             */
-            return GrpcProtocolHelpers.SetStatusAsync(GrpcProtocolHelpers.GetTrailersDestination(HttpListenerContext.Response, PipeWriter.Create(HttpListenerContext.Response.OutputStream)), new Status(StatusCode.Unimplemented, "Method is unimplemented."));
+            var context = new HttpListenerContextServerCallContext(HttpListenerContext, MethodOptions.Create([]), null, null, logger);
+            return GrpcProtocolHelpers.SetStatusAsync(GrpcProtocolHelpers.GetTrailersDestination(context), new Status(StatusCode.Unimplemented, "Method is unimplemented."));
         };
     }
 
@@ -155,7 +156,8 @@ public sealed partial class ServerCallHandlerFactory<[DynamicallyAccessedMembers
                 GrpcEventSource.Log.CallUnimplemented(HttpListenerContext.Request.Path.Value!);
             }
             */
-            return GrpcProtocolHelpers.SetStatusAsync(GrpcProtocolHelpers.GetTrailersDestination(HttpListenerContext.Response, PipeWriter.Create(HttpListenerContext.Response.OutputStream)), new Status(StatusCode.Unimplemented, "Service is unimplemented."));
+            var context = new HttpListenerContextServerCallContext(HttpListenerContext, MethodOptions.Create([]), null, null, logger);
+            return GrpcProtocolHelpers.SetStatusAsync(GrpcProtocolHelpers.GetTrailersDestination(context), new Status(StatusCode.Unimplemented, "Service is unimplemented."));
         };
     }
 }
